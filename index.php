@@ -68,14 +68,14 @@ $f3->route("GET|POST /order2", function($f3) {
     $_SESSION['animal'] = $_POST['animal'];
     //var_dump($_SESSION);*/
     if (isset($_POST['color'])) {
-        $color = $_POST[color];
-    }
-    if (validColor($color)) {
-        $_SESSION['color'] = $_POST['color'];
-        $f3->reroute('/results');
-    }
-    else {
-        $f3->set("errors['color']", "Please enter a color.");
+        $color = $_POST['color'];
+        if (validColor($color)) {
+            $_SESSION['color'] = $color;
+            $f3->reroute('/results');
+        }
+        else {
+            $f3->set("errors['color']", "Please enter a color.");
+        }
     }
     $views = new Template();
     echo $views->render('views/form2.html');
